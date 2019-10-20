@@ -3,8 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secrets');
 const Users = require('../../database/dbAccessFiles/users-model');
+const validation = require('../middleware/auth-middleware');
 
-router.post('/register', (req, res) => {
+router.post('/register', validation.checkForUser ,(req, res) => {
   
   const reqUser = req.body;
 
@@ -16,11 +17,17 @@ router.post('/register', (req, res) => {
 
     // Insert the new user into the DB
     Users.createUser(newUser)
-    .then(data => res.status(201).json({data}))
-    .catch(err => res.status(500).json({message: "The database was unable to create the user"}))
+    .then(data => {
+      if(data){
+        res.status(201).json({username: data.username, userId: data.userId})
+      }
+    })
+    .catch(err => {
+        res.status(500).json({message: "The database was unable to create the user", message: err.message})
+      
+    })
   }
   
-
 })
 
 router.post('/login', (req, res) => {
@@ -44,7 +51,7 @@ router.post('/login', (req, res) => {
           res.status(401).json({message: "You have provided insuficent credentials"})
         }
       })
-      .catch(err => res.status(500).json({message: "The DB ran into a issue", err: err.message}))
+      .catch(err => res.status(500).json({message: "The DB ran into an issue", err: err.message}))
 })
 
 
