@@ -5,6 +5,7 @@ module.exports = {
   find,
   findById,
   updateLib,
+  deletLib
 
 }
 
@@ -21,6 +22,12 @@ function findById(id) {
   return db('devLib')
     .where({ id })
     .first();
+}
+
+async function deletLib(libObj){
+   return db('devLib')
+  .del()
+  .where({id: libObj.id})
 }
 
 async function updateLib(libObj){

@@ -21,11 +21,16 @@ async function validateLib(req, res, next){
     id = libObj.category_id;
     const category = await Category.findById(id).first()
 
+    id = libObj.id;
+    const devLib = await DevLib.findById(id);
+
     if(!user){
       res.status(401).json({message: "Not a valid user"})
     } else if(!category){
       res.status(401).json({message: "Not a valid category"})
-    } else{
+    } else if(!devLib){
+      res.status(401).json({message: "Not a valid DevLib"}) 
+    }else{
       next();
     }
   }

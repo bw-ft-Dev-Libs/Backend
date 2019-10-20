@@ -23,7 +23,15 @@ router.put('/', libValidation.validateLib, (req, res) => {
 })
 
 router.delete('/', libValidation.validateDeleteLib, (req, res) =>{
-  res.status(200).json({message: "hitting the devLib DELETE route"})
+  const devLib = req.body.id;
+
+  DevLib.findById(devLib)
+  .then(devLib => {
+    res.status(200).json({data: devLib})
+    DevLib.deletLib(devLib)
+    .catch((err) => res.status(500).json({message: "The server was unable to delete the record", err: err.message }))
+  })
+  .catch(() => res.status(500).json({message: "The server was unable to locate the record"}))
 })
 
 module.exports = router;
