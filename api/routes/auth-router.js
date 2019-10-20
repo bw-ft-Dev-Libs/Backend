@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
           
           res.status(200)
             .json({
-              user: user.id,
+              userId: user.id,
               username: user.username,
               token: token
             })
