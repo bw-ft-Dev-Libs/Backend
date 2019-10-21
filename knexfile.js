@@ -31,7 +31,15 @@ module.exports = {
     migrations: {
       directory: './database/testing/migrations',
       tableName: 'dbmigrations'
-    }
+    },
+    seeds: {
+      directory: './database/testing/seeds'
+    }, 
+    pool: {
+      afterCreate: (connection, done) => {
+        connection.run('PRAGMA foreign_keys = ON', done);
+      },
+    },
   },
 
   production: {
