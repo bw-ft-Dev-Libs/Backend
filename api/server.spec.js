@@ -102,34 +102,98 @@ describe("POST /api/devLib", () => {
   })
 })
 
-// describe("GET /api/devLib", () => {
+describe("PUT /api/devLib", () => {
 
-//   describe("allows a valid user to get all dev-libs from the databse", () => {
-
-//     beforeEach(async () => {
-//       await db('users')
-//         .truncate()
-//      await request(server)
-//       .post('/api/auth/register')
-//       .send({username: "John Doe", password: 'TempPass1!'})
-//     })
-
-//     it("should login the user with a status of 200", async () => {
-//       const newUser = await request(server).post('/api/auth/login').send({username: "John Doe", password: 'TempPass1!'})
-//       expect(newUser.status).toBe(200);
-//     })
-
-//     it("should login the user and return a JSON data", async () => {
-//       const newUser = await request(server).post('/api/auth/login').send({username: "John Doe", password: 'TempPass1!'})
-//       expect(newUser.type).toMatch(/json/i);
-//     })
+  describe("allows a valid user that created a post to edit the post", () => {
 
 
-//     it("should login the user and return a username, userId and token", async () => {
-//       const user = await request(server).post('/api/auth/login').send({username: "John Doe", password: 'TempPass1!'})
-//       expect(user.body.username).toMatch(/john doe/i);
-//       expect(user.body.userId).toBe(1);
-//       expect(user.body.token).not.toHaveLength(0);
-//     })
-//   })
-// })
+    it("should edit the post with a status of 200", async () => {
+      const post = await request(server)
+      .put('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      .send({id: 3, lib: "This is something only one new", user_id: 1, category_id: 3})
+      expect(post.status).toBe(200)
+    })
+
+    it("should edit the post with a status of 200 and be in JSON data", async () => {
+      const post = await request(server)
+      .put('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      .send({id: 3, lib: "This is something its working", user_id: 1, category_id: 3})
+      expect(post.type).toMatch(/json/i);
+      expect(post.status).toBe(200);
+    })
+
+
+    it("should edit the post and return back the updated post", async () => {
+      const post = await request(server)
+      .put('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      .send({id: 3, lib: "This is something its working", user_id: 1, category_id: 3})
+      expect(Object.keys(post.body.data).sort()).toEqual(['id', 'lib', 'user_id', 'category_id'].sort());
+    })
+  })
+})
+
+describe("GET /api/devLib", () => {
+
+  describe("allows a valid user to get all records", () => {
+
+
+    it("should respond with a status of 200", async () => {
+      const post = await request(server)
+      .get('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      expect(post.status).toBe(200)
+    })
+
+    it("should respond with a status of 200 and be in JSON fromat", async () => {
+      const post = await request(server)
+      .get('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      expect(post.status).toBe(200)
+      expect(post.type).toMatch(/json/i);
+    })
+
+    it("should respond with a status of 200 with 3 objects", async () => {
+      const post = await request(server)
+      .get('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      expect(post.status).toBe(200)
+      expect(post.body.data).toHaveLength(3)
+    })
+  })
+})
+
+describe("DELETE /api/devLib", () => {
+
+  describe("allows a valid user that created a post to delete the post", () => {
+
+
+    it("should edit the post with a status of 200", async () => {
+      const post = await request(server)
+      .delete('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      .send({id: 1, user_id: 1})
+      expect(post.status).toBe(200)
+    })
+
+    it("should edit the post with a status of 200 and be in JSON data", async () => {
+      const post = await request(server)
+      .delete('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      .send({id: 2, user_id: 1})
+      expect(post.type).toMatch(/json/i);
+      expect(post.status).toBe(200);
+    })
+
+
+    it("should edit the post and return back the updated post", async () => {
+      const post = await request(server)
+      .delete('/api/devLib')
+      .set({authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkpvaG4gRG9lIEpyIEkiLCJpYXQiOjE1NzE2ODI3MzEsImV4cCI6MTU3MTc2OTEzMX0.lH3ZWovKLXoRoP5YtvVhXQ3so67hndgiDepMdGTt2EE"})
+      .send({id: 3, user_id: 1})
+      expect(Object.keys(post.body.data).sort()).toEqual(['id', 'lib', 'user_id', 'category_id'].sort());
+    })
+  })
+})
