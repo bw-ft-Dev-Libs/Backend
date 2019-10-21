@@ -54,7 +54,7 @@ module.exports = {
       tableName: 'knex_migrations'
     },
     seeds: {
-      directory: './databse/dev/seeds'
+      directory: './database/dev/seeds'
     }
   }
 
