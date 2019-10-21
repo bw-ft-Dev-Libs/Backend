@@ -52,14 +52,14 @@ async function validateLibPut(req, res, next){
 
       let id = libObj.user_id;
       const user = await Users.findById(id)
-      console.log(user)
+      
 
       id = libObj.category_id;
       const category = await Category.findById(id)
     
       id = libObj.id
       const devLib = await DevLib.findById(id)
-      console.log(devLib)
+      
       
       if(!user){
         res.status(401).json({message: "Not a valid user"})
