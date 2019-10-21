@@ -44,20 +44,22 @@ async function validateLibPost(req, res, next){
 async function validateLibPut(req, res, next){
   const libObj = req.body
 
-  if(!libObj.lib || !libObj.user_id || !libObj.category_id){
-    res.status(401).json({message: "Please send keys lib, user_id and category_id and give them values"})
+  if(!libObj.lib || !libObj.user_id || !libObj.category_id || !libObj.id){
+    res.status(401).json({message: "Please send keys id, lib, user_id and category_id and give them values"})
   } else{
 
     try{
 
       let id = libObj.user_id;
       const user = await Users.findById(id)
+      console.log(user)
 
       id = libObj.category_id;
       const category = await Category.findById(id)
     
       id = libObj.id
       const devLib = await DevLib.findById(id)
+      console.log(devLib)
       
       if(!user){
         res.status(401).json({message: "Not a valid user"})
