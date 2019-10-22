@@ -10,7 +10,7 @@ module.exports = {
 }
 
 async function insertLib(libObj){
-  const [id] = await db('devLib').insert(libObj)
+  const [id] = await db('devLib').insert(libObj, "id")
   return findById(id)
 }
 
