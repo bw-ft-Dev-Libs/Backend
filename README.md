@@ -106,7 +106,7 @@
 
 ## POST /api/devLib
 
-#### Expects
+#### Expected Payload
 
 ```
 {
@@ -131,7 +131,7 @@
 
 ## PUT /api/devLib
 
-#### Expects 
+#### Expected Payload
 
 ```
 {
@@ -157,7 +157,7 @@
 
 ## DELETE api/devLib
 
-#### Expects
+#### Expected Payload
 
 ```
 {
