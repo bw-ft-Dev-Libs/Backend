@@ -1,4 +1,3 @@
-# Backend
 # Dev Libs Backend
 
 ## [https://dev-libs-test.herokuapp.com/](https://dev-libs-test.herokuapp.com/)
@@ -106,7 +105,7 @@
 
 ## POST /api/devLib
 
-#### Expected Payload
+#### Expects
 
 ```
 {
@@ -131,7 +130,7 @@
 
 ## PUT /api/devLib
 
-#### Expected Payload
+#### Expects 
 
 ```
 {
@@ -155,16 +154,7 @@
 }
 ```
 
-## DELETE api/devLib
-
-#### Expected Payload
-
-```
-{
-	"id": 11,
-	"user_id": 1
-}
-```
+## DELETE api/devLib:id
 
 #### Returns
 
