@@ -80,12 +80,9 @@ async function validateLibPut(req, res, next){
 }
 
 function validateUserOnRecord(req, res, next){
-  const user = req.body.user_id;
-  const id = req.body.id;
+  const user = req.user_id;
+  const id = Number(req.params.id);
   
-  // debug
-  console.log("FROM VALIDATE USER ON RECORD", req.body)
-
   DevLib.findById(id)
   .then(devLib => {
     if(devLib.user_id === user){
@@ -98,14 +95,9 @@ function validateUserOnRecord(req, res, next){
 }
 
 function validateDeleteLib(req, res, next){
-  // debug
-  console.log("FROM VALIDATE DELETE LIB", req.body)
-  if(!req.body || !req.body.id || !req.body.user_id){
-    res.status(401).json({message: "please provide a id and user_id"})
-  } else{
-   
-    const id = req.body.id;
-
+  
+    const id = req.params.id;
+    
     DevLib.findById(id)
     .then(devLib => {
       if(!devLib){
@@ -115,7 +107,7 @@ function validateDeleteLib(req, res, next){
       }
     })
     .catch(err => res.status(500).json({message: "The DB ran into a issue"}))
-  }
+
   
 }
 

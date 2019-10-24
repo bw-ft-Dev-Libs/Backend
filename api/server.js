@@ -22,12 +22,6 @@ server.use('/api/devLib', validateUser, devLibRouter)
 
 server.get("/", (req, res) => {
   res.status(200).json({api: "Welcome to the app"})
-  console.log(req.body);
-})
-
-server.delete("/:id", (req, res) => {
-  res.status(200).json({data: req.params, message: "You posted to root route"})
-  console.log(req.params.id);
 })
 
 // Log all incoming request to the api
