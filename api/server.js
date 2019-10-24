@@ -21,6 +21,7 @@ server.use('/api/devLib', validateUser, devLibRouter)
 
 server.get("/", (req, res) => {
   res.status(200).json({api: "Welcome to the app"})
+  console.log(req.body);
 })
 
 module.exports = server;
