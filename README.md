@@ -154,7 +154,7 @@
 }
 ```
 
-## DELETE api/devLib:id
+## DELETE api/devLib/:id
 
 #### Returns
 
