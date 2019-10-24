@@ -98,11 +98,9 @@ function validateUserOnRecord(req, res, next){
 }
 
 function validateDeleteLib(req, res, next){
-  
-  const id = req.body.id;
-
   // debug
   console.log("FROM VALIDATE DELETE LIB", req.body)
+  const id = req.body.id;
 
   DevLib.findById(id)
   .then(devLib => {
