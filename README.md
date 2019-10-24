@@ -154,16 +154,7 @@
 }
 ```
 
-## DELETE api/devLib
-
-#### Expects
-
-```
-{
-	"id": 11,
-	"user_id": 1
-}
-```
+## DELETE api/devLib:id
 
 #### Returns
 
