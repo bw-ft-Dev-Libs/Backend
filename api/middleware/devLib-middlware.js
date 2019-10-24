@@ -100,9 +100,10 @@ function validateUserOnRecord(req, res, next){
 function validateDeleteLib(req, res, next){
   // debug
   console.log("FROM VALIDATE DELETE LIB", req.body)
-  if(!req.body.id || !req.body.user_id){
+  if(!req.body || !req.body.id || !req.body.user_id){
     res.status(401).json({message: "please provide a id and user_id"})
   } else{
+   
     const id = req.body.id;
 
     DevLib.findById(id)
