@@ -100,17 +100,22 @@ function validateUserOnRecord(req, res, next){
 function validateDeleteLib(req, res, next){
   // debug
   console.log("FROM VALIDATE DELETE LIB", req.body)
-  const id = req.body.id;
+  if(!req.body.id || !req.body.user_id){
+    res.status(401).json({message: "please provide a id and user_id"})
+  } else{
+    const id = req.body.id;
 
-  DevLib.findById(id)
-  .then(devLib => {
-    if(!devLib){
-      res.status(401).json({message: "Not a valid DevLib"})
-    } else {
-      next();
-    }
-  })
-  .catch(err => res.status(500).json({message: "The DB ran into a issue"}))
+    DevLib.findById(id)
+    .then(devLib => {
+      if(!devLib){
+        res.status(401).json({message: "Not a valid DevLib"})
+      } else {
+        next();
+      }
+    })
+    .catch(err => res.status(500).json({message: "The DB ran into a issue"}))
+  }
+  
 }
 
 
