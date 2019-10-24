@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
 
 module.exports = (req, res, next) => {
-  console.log(req.body)
+  console.log("FROM VALIDATE USER", req.body)
   const token = req.headers.authorization;
  
   if (token){
