@@ -17,7 +17,7 @@ server.use(helmet())
 server.use(express.json())
 
 server.use('/api/auth', authRouter)
-server.use('/api/devLib', devLibRouter)
+server.use('/api/devLib', validateUser, devLibRouter)
 
 server.get("/", (req, res) => {
   res.status(200).json({api: "Welcome to the app"})
