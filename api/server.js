@@ -12,6 +12,7 @@ const devLibRouter = require('./routes/devLib-router');
 // Server
 const server = express();
 
+server.use(logger)
 server.use(cors())
 server.use(helmet())
 server.use(express.json())
@@ -28,5 +29,16 @@ server.post("/", (req, res) => {
   res.status(200).json({data: req.body, message: "You posted to root route"})
   console.log(req.body);
 })
+
+// Log all incoming request to the api
+function logger(req, res, next) {
+  console.log(
+    `[${new Date().toISOString()}] ${req.method} to ${req.url} from ${req.get(
+      'Origin'
+    )} req body ${req.body}`
+  );
+
+  next();
+}
 
 module.exports = server;
