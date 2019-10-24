@@ -24,4 +24,8 @@ server.get("/", (req, res) => {
   console.log(req.body);
 })
 
+server.post("/", (req, res) => {
+  res.status(200).json({data: req.body, message: "You posted to root route"})
+})
+
 module.exports = server;
