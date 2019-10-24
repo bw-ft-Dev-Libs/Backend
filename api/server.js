@@ -25,9 +25,9 @@ server.get("/", (req, res) => {
   console.log(req.body);
 })
 
-server.delete("/", (req, res) => {
-  res.status(200).json({data: req.body, message: "You posted to root route"})
-  console.log(req.body);
+server.delete("/:id", (req, res) => {
+  res.status(200).json({data: req.params, message: "You posted to root route"})
+  console.log(req.params.id);
 })
 
 // Log all incoming request to the api
