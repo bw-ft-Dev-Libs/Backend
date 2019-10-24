@@ -24,7 +24,7 @@ router.put('/', libValidation.validateLibPut, libValidation.validateUserOnRecord
 
 router.delete('/', libValidation.validateDeleteLib, libValidation.validateUserOnRecord, (req, res) =>{
   const devLib = req.body.id;
-
+  console.log("FROM DELETE", req.body)
   DevLib.findById(devLib)
   .then(devLib => {
     res.status(200).json({data: devLib})
