@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
       
       req.user_id = decodedToken.subject
-
+      
       if(err){
         // foul play
         res.status(401).json({message: "YOU SHALL NOT PASS!"})

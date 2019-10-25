@@ -11,7 +11,6 @@ module.exports = {
 
 async function validateLibPost(req, res, next){
   const libObj = req.body
-
   if(!libObj.lib || !libObj.user_id || !libObj.category_id){
     res.status(401).json({message: "Please send keys lib, user_id and category_id and give them values"})
   } else{
@@ -43,6 +42,7 @@ async function validateLibPost(req, res, next){
 
 async function validateLibPut(req, res, next){
   const libObj = req.body
+  console.log("FROM LIB PUT MIDDLEWARE", req.body)
 
   if(!libObj.lib || !libObj.user_id || !libObj.category_id || !libObj.id){
     res.status(401).json({message: "Please send keys id, lib, user_id and category_id and give them values"})
@@ -81,7 +81,7 @@ async function validateLibPut(req, res, next){
 
 function validateUserOnRecord(req, res, next){
   const user = req.user_id;
-  const id = Number(req.params.id);
+  const id = Number(req.params.id) || req.body.id;
   
   DevLib.findById(id)
   .then(devLib => {
