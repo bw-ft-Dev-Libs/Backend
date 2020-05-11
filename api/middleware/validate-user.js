@@ -3,10 +3,12 @@ const secrets = require('../config/secrets');
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
-
+ 
   if (token){
     // check the token is valid
     jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
+      
+      req.user_id = decodedToken.subject
       
       if(err){
         // foul play

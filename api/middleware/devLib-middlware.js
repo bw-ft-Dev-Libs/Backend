@@ -11,7 +11,6 @@ module.exports = {
 
 async function validateLibPost(req, res, next){
   const libObj = req.body
-
   if(!libObj.lib || !libObj.user_id || !libObj.category_id){
     res.status(401).json({message: "Please send keys lib, user_id and category_id and give them values"})
   } else{
@@ -80,8 +79,8 @@ async function validateLibPut(req, res, next){
 }
 
 function validateUserOnRecord(req, res, next){
-  const user = req.body.user_id;
-  const id = req.body.id;
+  const user = req.user_id;
+  const id = Number(req.params.id) || req.body.id;
   
   DevLib.findById(id)
   .then(devLib => {
@@ -96,17 +95,19 @@ function validateUserOnRecord(req, res, next){
 
 function validateDeleteLib(req, res, next){
   
-  const id = req.body.id;
+    const id = req.params.id;
+    
+    DevLib.findById(id)
+    .then(devLib => {
+      if(!devLib){
+        res.status(401).json({message: "Not a valid DevLib"})
+      } else {
+        next();
+      }
+    })
+    .catch(err => res.status(500).json({message: "The DB ran into a issue"}))
 
-  DevLib.findById(id)
-  .then(devLib => {
-    if(!devLib){
-      res.status(401).json({message: "Not a valid DevLib"})
-    } else {
-      next();
-    }
-  })
-  .catch(err => res.status(500).json({message: "The DB ran into a issue"}))
+  
 }
 
 

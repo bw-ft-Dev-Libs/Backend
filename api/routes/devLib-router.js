@@ -10,6 +10,7 @@ router.get('/', (req, res) => {
 
 router.post('/', libValidation.validateLibPost ,(req, res) => {
   const newLib = req.body;
+
   DevLib.insertLib(newLib)
   .then(devLib => res.status(201).json({data: devLib}))
   .catch(() => res.status(500).json({message: "The DB was unable to create the record"}))
@@ -17,14 +18,15 @@ router.post('/', libValidation.validateLibPost ,(req, res) => {
 
 router.put('/', libValidation.validateLibPut, libValidation.validateUserOnRecord, (req, res) => {
   const updatedLib = req.body;
+  
   DevLib.updateLib(updatedLib)
   .then(devLib => res.status(200).json({data: devLib}))
   .catch((err) => res.status(500).json({message: "The DB was unable to update the record", err:  err.message}))
 })
 
-router.delete('/', libValidation.validateDeleteLib, libValidation.validateUserOnRecord, (req, res) =>{
-  const devLib = req.body.id;
-
+router.delete('/:id', libValidation.validateDeleteLib, libValidation.validateUserOnRecord, (req, res) =>{
+  const devLib = Number(req.params.id);
+  
   DevLib.findById(devLib)
   .then(devLib => {
     res.status(200).json({data: devLib})
